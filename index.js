@@ -42,7 +42,7 @@ const sendHttpRequest = () => {
   const req = http.request(options, (res) => {
     // Network I/O callbacks run in phase 8
     // File I/O callbacks run in phase 4
-    console.log('Response received from server');
+    console.log('Response received from the server');
 
     // 9. Execute check handle callback
     setImmediate(() =>
@@ -58,6 +58,14 @@ const sendHttpRequest = () => {
 setTimeout(() => sendHttpRequest(), 8000);
 
 // 11. Iteration ends
+
+//<---------------------------------------------------
+
+fs.readFile('readme.md', () => {
+  setTimeout(() => console.log('File I/O callback via setTimeout()'), 0);
+  // This callback executes first
+  setImmediate(() => console.log('File I/O callback via setImmediate()'));
+});
 
 //<---------------------------------------------------
 
