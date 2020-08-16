@@ -1,0 +1,26 @@
+{
+  "name": "event-loop-playground",
+  "version": "1.0.0",
+  "description": "Going Around the Loop: A Guide to the Node.js Event Loop",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beautifulcoder/event-loop-playground.git"
+  },
+  "keywords": [
+    "Node",
+    "JavaScript",
+    "V8",
+    "libuv",
+    "Asynchrony"
+  ],
+  "author": "Camilo Reyes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/beautifulcoder/event-loop-playground/issues"
+  },
+  "homepage": "https://github.com/beautifulcoder/event-loop-playground#readme"
+}
