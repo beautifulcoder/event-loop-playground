@@ -5,6 +5,8 @@ setTimeout(
 const stopTime = Date.now() + 2000;
 while (Date.now() < stopTime) {} // Block the main loop
 
+//<---------------------------------------------------
+
 // This takes 7 secs to execute
 setTimeout(() => console.log('Ran callback A'), 5000);
 
@@ -14,18 +16,20 @@ const readFileSync = async (path) => await fs.readFileSync(path);
 readFileSync('readme.md').then((data) => console.log(data));
 console.log('The event loop continues without blocking...');
 
-// Loop begins, timestamps are updated
+//<---------------------------------------------------
+
+// 1. Loop begins, timestamps are updated
 const http = require('http');
 
-// The loop remains alive if there is code in the call stack to unwind
-// Poll for I/O and execute this callback with incomming connections
+// 2. The loop remains alive if there is code in the call stack to unwind
+// 8. Poll for I/O and execute this callback with incomming connections
 const server = http.createServer((req, res) => {
-  // I/O callback executes
+  // Network I/O callback executes immediately after poll
   res.end();
 });
 
 // Keep the loop alive if there is an open connection
-// If there is nothing left to do, keep loop alive and calculate timeout
+// 7. If there is nothing left to do, calculate timeout
 server.listen(8000);
 
 const options = {
@@ -36,11 +40,13 @@ const options = {
 
 const sendHttpRequest = () => {
   const req = http.request(options, (res) => {
+    // Network I/O callbacks run in phase 8
+    // File I/O callbacks run in phase 4
     console.log('Response received from server');
 
-    // Execute check handle callback
+    // 9. Execute check handle callback
     setImmediate(() =>
-      // Close callback executes
+      // 10. Close callback executes
       server.close(() =>
         console.log('Closing the server')));
   });
@@ -48,8 +54,12 @@ const sendHttpRequest = () => {
   // The End. SPOILER ALERT! The Loop dies at the end
 };
 
-// Timer runs in 8 secs, meanwhile the loop is staying alive via a timeout
+// 3. Timer runs in 8 secs, meanwhile the loop is staying alive via a timeout
 setTimeout(() => sendHttpRequest(), 8000);
+
+// 11. Iteration ends
+
+//<---------------------------------------------------
 
 const EventEmitter = require('events');
 
