@@ -22,7 +22,7 @@ console.log('The event loop continues without blocking...');
 const http = require('http');
 
 // 2. The loop remains alive if there is code in the call stack to unwind
-// 8. Poll for I/O and execute this callback with incomming connections
+// 8. Poll for I/O and execute this callback with incoming connections
 const server = http.createServer((req, res) => {
   // Network I/O callback executes immediately after poll
   res.end();
