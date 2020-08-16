@@ -48,10 +48,10 @@ const sendHttpRequest = () => {
     setImmediate(() =>
       // 10. Close callback executes
       server.close(() =>
+        // The End. SPOILER ALERT! The Loop dies at the end
         console.log('Closing the server')));
   });
   req.end();
-  // The End. SPOILER ALERT! The Loop dies at the end
 };
 
 // 3. Timer runs in 8 secs, meanwhile the loop is staying alive via a timeout
