@@ -39,7 +39,7 @@ const options = {
 };
 
 const sendHttpRequest = () => {
-  const req = http.request(options, (res) => {
+  const req = http.request(options, () => {
     // Network I/O callbacks run in phase 8
     // File I/O callbacks run in phase 4
     console.log('Response received from the server');
